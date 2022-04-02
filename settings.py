@@ -20,8 +20,10 @@ class MyAccount:
         self.walletBAddress = walletBAddress
         if chain == 'eth':
             self.chain = config('INFURA_KEY')
+            self.chainId = 1
         elif chain == 'pulsechain':
             self.chain = config('pulsechain')
+            self.chainId = 941
 
     def createConnection(self):
         """
@@ -101,7 +103,7 @@ class MyAccount:
             max_send = b - g
             print(max_send, g)
             transaction = {"to": Web3.toChecksumAddress(recipient_wallet),
-                           'chainId': 941,
+                           'chainId': self.chainId,
                            "value":  w3.toWei(max_send, 'ether'),
                            "gas": 21000,
                            "gasPrice": gwei,
@@ -123,7 +125,7 @@ class MyAccount:
         print(f'{ebalance} eth found for gas')
         if ethbalance > gas_price * 80000 and hexbalance > 1:
             contract_instance = w3.eth.contract(address=Web3.toChecksumAddress(self.hexContractAddress), abi=hexAbi)
-            txn = contract_instance.functions.transfer(Web3.toChecksumAddress(recipient_wallet), hexbalance).buildTransaction({'chainId': 1,
+            txn = contract_instance.functions.transfer(Web3.toChecksumAddress(recipient_wallet), hexbalance).buildTransaction({'chainId': self.chainId,
                                                                                                                                'gas': 80000,
                                                                                                                                'maxFeePerGas': w3.toWei(gas_price, 'gwei'),
                                                                                                                                'maxPriorityFeePerGas': w3.toWei(gas_price, 'gwei'),
