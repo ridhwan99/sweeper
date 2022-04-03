@@ -1,4 +1,6 @@
 # sweeper
+Does someone have your keys?
+Secure your future stakes and yeild on a compromised wallet.
 #
 {} means use your own data
 #
