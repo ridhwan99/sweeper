@@ -5,6 +5,7 @@ setup(
     version='0.1.0',
     py_modules=['settings'],
     install_requires=[
+        'click'
         'python-decouple',
         'termcolor',
         'web3',
