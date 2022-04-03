@@ -24,3 +24,5 @@ sweep -wA {parent wallet} -wB {child wallet} -ch {pulsechain or eth}
 script moves all eth or pls from parent wallet to child wallet when there is enough to pay gas fee.
 #
 As long as the script runs no eth or pls can remain in the parent wallet.
+# how is this useful
+In a scenerio where parent wallet is compromised , running sweeper will always drain the parent wallets eth or pls to your specified child wallet which in turn leaves all your tokens i.e future stakes or yeild to be claimed by parent wallet , safe because there will always be no gas to send them out .
