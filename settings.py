@@ -97,22 +97,20 @@ class MyAccount:
         gwei = w3.toWei(gas_price, 'gwei')
         b = w3.fromWei(balance, 'ether')
         g = w3.fromWei(gwei*21000, 'ether')
-        print(f'{b} eth found')
-        print(b, g)
+        cprint(f'[+] {b} eth found', 'yellow')
         if balance > gwei * 21000:
             max_send = b - g
-            print(max_send, g)
             transaction = {"to": Web3.toChecksumAddress(recipient_wallet),
                            'chainId': self.chainId,
                            "value":  w3.toWei(max_send, 'ether'),
                            "gas": 21000,
                            "gasPrice": gwei,
                            "nonce": w3.eth.getTransactionCount(self.ethWalletAddress)}
-            print(transaction)
+            cprint(transaction, 'blue')
 
             return self.signTransaction(transaction)
         else:
-            print("not enough gas")
+            cprint(f"[+] Not enough gas", 'red')
 
     def send_hex(self, recipient_wallet):
         w3 = self.createConnection()
@@ -121,8 +119,8 @@ class MyAccount:
         ethbalance = w3.toWei(ebalance, 'gwei')
         nonce = w3.eth.getTransactionCount(self.ethWalletAddress)
         gas_price = self.get_fast_gas_price()
-        print(f'Found {hexbalance} hex')
-        print(f'{ebalance} eth found for gas')
+        cprint(f'[+] Found {hexbalance} hex', 'yellow')
+        cprint(f'[+] {ebalance} eth found for gas', 'yellow')
         if ethbalance > gas_price * 80000 and hexbalance > 1:
             contract_instance = w3.eth.contract(address=Web3.toChecksumAddress(self.hexContractAddress), abi=hexAbi)
             txn = contract_instance.functions.transfer(Web3.toChecksumAddress(recipient_wallet), hexbalance).buildTransaction({'chainId': self.chainId,
@@ -132,6 +130,6 @@ class MyAccount:
                                                                                                                                'nonce': nonce, })
             return self.signTransaction(txn)
         else:
-            print('not enough eth or hex')
+            cprint(f'[+] Not enough eth or hex', 'red')
 
 
