@@ -20,4 +20,7 @@ add parent wallet and private key in .env as {parent wallet}={private key}
 sweep --help
 #
 sweep -wA {parent wallet} -wB {child wallet} -ch {pulsechain or eth}
-
+# what happens
+script moves all eth or pls from parent wallet to child wallet when there is enough to pay gas fee.
+#
+As long as the script runs no eth or pls can remain in the parent wallet.
